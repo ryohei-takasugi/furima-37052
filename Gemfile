@@ -62,3 +62,4 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 # add
 gem 'devise'
 gem 'pry-rails'
+gem 'active_hash'
