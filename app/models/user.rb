@@ -4,6 +4,10 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
+  # association
+  has_many :items, dependent: :destroy
+
+  # validation
   NAME_REGEX = /\A[ぁ-んァ-ヶ一-龥々ー]+\z/.freeze
   KANA_REGEX = /\A[ァ-ヶ]+\z/.freeze
   with_options presence: true do
