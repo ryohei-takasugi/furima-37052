@@ -8,6 +8,7 @@ class Item < ApplicationRecord
   belongs_to :shipping_fee_status
   # association
   belongs_to :user
+  has_one :order, dependent: :destroy
   has_one_attached :image
 
   # validation

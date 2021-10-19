@@ -5,7 +5,8 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
 
   # association
-  has_many :items, dependent: :destroy
+  has_many :items,  dependent: :destroy
+  has_many :orders, dependent: :destroy
 
   # validation
   NAME_REGEX = /\A[ぁ-んァ-ヶ一-龥々ー]+\z/.freeze
