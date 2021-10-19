@@ -11,8 +11,8 @@ window.addEventListener('load', () => {
       profitPrice.innerHTML = 0;  
     }
     else {
-      addTaxPrice.innerHTML = salesFee;
-      profitPrice.innerHTML = inputValue - salesFee;
+      addTaxPrice.innerHTML = salesFee.toLocaleString();
+      profitPrice.innerHTML = (inputValue - salesFee).toLocaleString();
     }
   });
 });
