@@ -10,8 +10,6 @@ class ItemsController < ApplicationController
 
   def create
     item = Item.new(item_params)
-    puts "item_params[:price]: #{item_params[:price]}"
-    puts "item.price         : #{item.price}"
     if item.valid? && item.save
       redirect_to root_path
     else
