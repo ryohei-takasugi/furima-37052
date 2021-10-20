@@ -6,7 +6,7 @@ class User < ApplicationRecord
 
   # association
   has_many :items, dependent: :destroy
-  # has_many :orders, dependent: :destroy
+  has_many :orders, dependent: :destroy
 
   # validation
   NAME_REGEX = /\A[ぁ-んァ-ヶ一-龥々ー]+\z/.freeze
