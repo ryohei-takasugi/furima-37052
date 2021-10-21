@@ -3,6 +3,11 @@ require 'rails_helper'
 RSpec.describe OrderDelivery, type: :model do
   before do
     @order_delivery = FactoryBot.build(:order_delivery)
+    @item = FactoryBot.create(:item)
+    @order_delivery.item_id = @item.id
+    @order_delivery.user_id = @item.user.id
+    # FIXME: なぜかSleepしないと「MySQL client is not connected」が発生する
+    sleep 0.1
   end
   describe '商品購入' do
     context '商品を購入できる場合' do
@@ -20,11 +25,6 @@ RSpec.describe OrderDelivery, type: :model do
         @order_delivery.token = nil
         @order_delivery.valid?
         expect(@order_delivery.errors.full_messages).to include("Token can't be blank")
-      end
-      it 'price が空では登録できない' do
-        @order_delivery.price = nil
-        @order_delivery.valid?
-        expect(@order_delivery.errors.full_messages).to include("Price can't be blank")
       end
       it 'postal_code が空では登録できない' do
         @order_delivery.postal_code = nil
@@ -109,6 +109,11 @@ RSpec.describe OrderDelivery, type: :model do
       end
       it 'phone_number が9桁では登録できない' do
         @order_delivery.phone_number = '123456789'
+        @order_delivery.valid?
+        expect(@order_delivery.errors.full_messages).to include('Phone number is too short')
+      end
+      it 'phone_number が12桁では登録できない' do
+        @order_delivery.phone_number = '123456789012'
         @order_delivery.valid?
         expect(@order_delivery.errors.full_messages).to include('Phone number is too short')
       end

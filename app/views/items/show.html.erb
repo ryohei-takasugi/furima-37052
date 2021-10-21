@@ -8,7 +8,7 @@
     </h2>
     <div class="item-img-content">
       <%= image_tag @item.image ,class:"item-box-img" %>
-      <% if Order.exists?(item_id: @item.id) %>
+      <% if confirm_sould_out(@item) %>
       <div class="sold-out">
         <span>Sold Out!!</span>
       </div>
@@ -23,17 +23,13 @@
       </span>
     </div>
 
-    <% if user_signed_in? %>
+    <% if user_signed_in? && !confirm_sould_out(@item)%>
       <% if current_user.id == @item.user_id %>
-        <% unless Order.exists?(item_id: @item.id) %>
-          <%= link_to "商品の編集", edit_item_path(@item), method: :get, class: "item-red-btn" %>
-          <p class="or-text">or</p>
-          <%= link_to "削除", item_path(@item), method: :delete, class:"item-destroy" %>
-        <% end %>
+        <%= link_to "商品の編集", edit_item_path(@item), method: :get, class: "item-red-btn" %>
+        <p class="or-text">or</p>
+        <%= link_to "削除", item_path(@item), method: :delete, class:"item-destroy" %>
       <% else %>
-        <% unless Order.exists?(item_id: @item.id) %>
         <%= link_to "購入画面に進む", item_orders_path(@item) ,class:"item-red-btn"%>
-        <% end %>
       <% end %>
     <% end %>
 
