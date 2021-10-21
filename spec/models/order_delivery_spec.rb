@@ -70,47 +70,47 @@ RSpec.describe OrderDelivery, type: :model do
       it 'postal_code が ハイフンなし でなければ登録できない' do
         @order_delivery.postal_code = '1234567'
         @order_delivery.valid?
-        expect(@order_delivery.errors.full_messages).to include("Postal code is invalid. Enter it as follows (e.g. 123-4567)")
+        expect(@order_delivery.errors.full_messages).to include('Postal code is invalid. Enter it as follows (e.g. 123-4567)')
       end
       it 'postal_code が ハイフンの左側が3桁未満 でなければ登録できない' do
         @order_delivery.postal_code = '12-4567'
         @order_delivery.valid?
-        expect(@order_delivery.errors.full_messages).to include("Postal code is invalid. Enter it as follows (e.g. 123-4567)")
+        expect(@order_delivery.errors.full_messages).to include('Postal code is invalid. Enter it as follows (e.g. 123-4567)')
       end
       it 'postal_code が ハイフンの左側が3桁より大きい でなければ登録できない' do
         @order_delivery.postal_code = '1234-5678'
         @order_delivery.valid?
-        expect(@order_delivery.errors.full_messages).to include("Postal code is invalid. Enter it as follows (e.g. 123-4567)")
+        expect(@order_delivery.errors.full_messages).to include('Postal code is invalid. Enter it as follows (e.g. 123-4567)')
       end
       it 'postal_code が ハイフンの右側が4桁未満 でなければ登録できない' do
         @order_delivery.postal_code = '123-456'
         @order_delivery.valid?
-        expect(@order_delivery.errors.full_messages).to include("Postal code is invalid. Enter it as follows (e.g. 123-4567)")
+        expect(@order_delivery.errors.full_messages).to include('Postal code is invalid. Enter it as follows (e.g. 123-4567)')
       end
       it 'postal_code が ハイフンの右側が4桁より大きい でなければ登録できない' do
         @order_delivery.postal_code = '123-45678'
         @order_delivery.valid?
-        expect(@order_delivery.errors.full_messages).to include("Postal code is invalid. Enter it as follows (e.g. 123-4567)")
+        expect(@order_delivery.errors.full_messages).to include('Postal code is invalid. Enter it as follows (e.g. 123-4567)')
       end
       it 'phone_number が全角では登録できない' do
         @order_delivery.phone_number = '０９０１２３４５６７８'
         @order_delivery.valid?
-        expect(@order_delivery.errors.full_messages).to include("Phone number is invalid. Input only number")
+        expect(@order_delivery.errors.full_messages).to include('Phone number is invalid. Input only number')
       end
       it 'phone_number が半角英字では登録できない' do
         @order_delivery.phone_number = 'abcdeabcdef'
         @order_delivery.valid?
-        expect(@order_delivery.errors.full_messages).to include("Phone number is invalid. Input only number")
+        expect(@order_delivery.errors.full_messages).to include('Phone number is invalid. Input only number')
       end
       it 'phone_number が半角英数字では登録できない' do
         @order_delivery.phone_number = '09o12345678'
         @order_delivery.valid?
-        expect(@order_delivery.errors.full_messages).to include("Phone number is invalid. Input only number")
+        expect(@order_delivery.errors.full_messages).to include('Phone number is invalid. Input only number')
       end
       it 'phone_number が9桁では登録できない' do
         @order_delivery.phone_number = '123456789'
         @order_delivery.valid?
-        expect(@order_delivery.errors.full_messages).to include("Phone number is too short")
+        expect(@order_delivery.errors.full_messages).to include('Phone number is too short')
       end
     end
   end
