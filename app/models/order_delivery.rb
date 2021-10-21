@@ -10,6 +10,8 @@ class OrderDelivery
     validates :city
     validates :addresses
     validates :phone_number,  numericality: { only_integer: true, message: 'is invalid. Input only number' }, length: { in: 10..11, message: 'is too short' }
+    validates :user_id
+    validates :item_id
   end
 
   def save
