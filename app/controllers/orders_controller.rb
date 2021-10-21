@@ -1,11 +1,14 @@
 class OrdersController < ApplicationController
+  before_action :load_item_find
+  before_action :confirm_sined_in
+  before_action :confirm_identity
+  before_action :confirm_sould_out
+
   def index
-    @item = Item.find(params[:item_id])
     @order_delivery = OrderDelivery.new
   end
 
   def create
-    @item = Item.find(params[:item_id])
     @order_delivery = OrderDelivery.new(order_params)
     if @order_delivery.valid?
       pay_item
@@ -29,5 +32,21 @@ class OrdersController < ApplicationController
       card: order_params[:token],
       currency: 'jpy'
     )
+  end
+
+  def load_item_find
+    @item = Item.find(params[:item_id])
+  end
+
+  def confirm_sined_in
+    redirect_to root_path unless user_signed_in?
+  end
+
+  def confirm_identity
+    redirect_to root_path if current_user.id == @item.user_id
+  end
+
+  def confirm_sould_out
+    redirect_to root_path if Order.exists?(item_id: params[:item_id])
   end
 end
