@@ -4,8 +4,9 @@ RSpec.describe OrderDelivery, type: :model do
   before do
     @order_delivery = FactoryBot.build(:order_delivery)
     @item = FactoryBot.create(:item)
+    @user = FactoryBot.create(:user)
     @order_delivery.item_id = @item.id
-    @order_delivery.user_id = @item.user.id
+    @order_delivery.user_id = @user.id
     # FIXME: なぜかSleepしないと「MySQL client is not connected」が発生する
     sleep 0.1
   end
