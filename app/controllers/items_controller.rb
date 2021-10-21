@@ -1,7 +1,8 @@
 class ItemsController < ApplicationController
   before_action :authenticate_user!, except: [:index, :show]
-  before_action :load_item_find, only: [:show, :edit, :update, :destroy]
-  before_action :confirm_identity, only: [:edit, :update, :destroy]
+  before_action :load_item_find,     only: [:show, :edit, :update, :destroy]
+  before_action :confirm_identity,   only: [:edit, :update, :destroy]
+  before_action :confirm_sould_out,  only: [:edit, :update, :destroy]
 
   def index
     @items = Item.all.includes(:user).order(created_at: :desc)
@@ -52,5 +53,9 @@ class ItemsController < ApplicationController
 
   def confirm_identity
     redirect_to root_path unless current_user.id == @item.user_id
+  end
+
+  def confirm_sould_out
+    redirect_to root_path if Order.exists?(item_id: params[:id])
   end
 end
